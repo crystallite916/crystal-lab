@@ -1,0 +1,36 @@
+# Crystal Lab - Shared Dependencies
+# This file contains common dependencies used across multiple projects in the crystal-lab repository.
+# Individual projects may have additional project-specific dependencies.
+
+# ============================================
+# Core Data Processing
+# ============================================
+pandas>=2.3.0
+numpy>=2.3.0
+
+# ============================================
+# Google Cloud Platform
+# ============================================
+# BigQuery
+google-cloud-bigquery>=3.34.0
+db-dtypes>=1.1.1  # Required for BigQuery to pandas DataFrame conversion
+
+# Google Sheets & Drive API
+gspread>=6.2.1
+gspread-dataframe>=4.0.0
+gspread-formatting>=1.2.1
+google-auth>=2.40.0
+google-auth-oauthlib>=1.2.0
+google-auth-httplib2>=0.2.0
+oauth2client>=4.1.3
+
+# ============================================
+# Excel/Spreadsheet Support
+# ============================================
+openpyxl>=3.1.5
+
+# ============================================
+# Testing
+# ============================================
+pytest>=7.4.2
+pytest-mock>=3.10.0
