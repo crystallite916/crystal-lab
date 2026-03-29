@@ -1,0 +1,77 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "crystal-lab-shared"
+version = "0.1.0"
+description = "Shared utilities and configuration for crystal-lab monorepo"
+
+[tool.setuptools.packages.find]
+include = ["shared*"]
+
+# ============================================================================
+# Testing Configuration (pytest)
+# ============================================================================
+[tool.pytest.ini_options]
+# Test discovery paths
+testpaths = ["python"]
+
+# Patterns for test file discovery
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+
+# Console output configuration
+addopts = [
+    "-v",                          # Verbose output
+    "--strict-markers",            # Raise error on unknown markers
+    "--tb=short",                  # Shorter traceback format
+    "--ignore=.venv",              # Exclude virtual environment
+    "--ignore=env",                # Exclude project-specific venvs
+]
+
+# Custom markers for categorizing tests
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+    "unit: marks tests as unit tests",
+]
+
+# ============================================================================
+# Code Formatting (Black)
+# ============================================================================
+[tool.black]
+# Line length matches pre-commit configuration
+line-length = 100
+
+# Python version compatibility
+target-version = ["py311", "py312"]
+
+# Directories and files to exclude
+exclude = '''
+/(
+    \.venv
+  | env
+  | \.git
+  | \.pytest_cache
+  | __pycache__
+  | build
+  | dist
+  | \.eggs
+)/
+'''
+
+# ============================================================================
+# Linting Configuration (Flake8)
+# ============================================================================
+# Note: Flake8 doesn't read pyproject.toml natively (requires flake8-pyproject plugin)
+# Configuration is primarily in .pre-commit-config.yaml
+# Documented here for reference:
+#
+# [tool.flake8]
+# max-line-length = 100
+# extend-ignore = ["E203"]  # Whitespace before ':' (conflicts with Black)
+# exclude = [".venv", "env", ".git", "__pycache__", "build", "dist"]
+#
+# To use this configuration, install: pip install flake8-pyproject

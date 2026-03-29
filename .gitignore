@@ -73,6 +73,12 @@ credentials.json
 .token.pickle
 token.json
 
+# Environment Variables
+.env
+.env.local
+.env.*.local
+!.env.example
+
 # ============================================
 # Logs
 # ============================================
