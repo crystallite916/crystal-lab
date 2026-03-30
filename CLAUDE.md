@@ -9,6 +9,7 @@ Personal Python portfolio monorepo. Projects live in `python/` with a shared uti
 | Project | Location | Description | Status |
 |---|---|---|---|
 | _template | `python/_template/` | Scaffolding template for new projects | Template |
+| baseball_promos | `python/baseball_promos/` | Scrape MLB/MiLB promo schedules → BigQuery → Google Calendar | Active |
 
 ---
 

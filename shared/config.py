@@ -25,5 +25,5 @@ SCOPES_BIGQUERY = [
 ]
 
 # BigQuery Configuration
-BQ_PROJECT_ID = ""  # TODO: set your project ID
-BQ_LOCATION = ""  # TODO: set your location (e.g., "us-east1")
+BQ_PROJECT_ID = "instant-bonfire-481001-c0"
+BQ_LOCATION = "us-central1"
