@@ -11,9 +11,7 @@ from gspread.exceptions import APIError
 import pandas as pd
 from .config import (
     GOOGLE_SERVICE_ACCOUNT_FILE,
-    BIG_QUERY_SERVICE_ACCOUNT_FILE,
     SCOPES_SHEETS,
-    SCOPES_BIGQUERY,
     BQ_PROJECT_ID,
     BQ_LOCATION,
 )
@@ -116,36 +114,31 @@ def write_to_worksheet(
 # 2.0 BigQuery Utilities
 
 
-def get_bigquery_client(use_adc: bool = False) -> bigquery.Client:
+def get_bigquery_client() -> bigquery.Client:
     """
-    Initialize BigQuery client using service account file or Application Default Credentials.
+    Initialize BigQuery client using Application Default Credentials (ADC).
 
-    Parameters:
-        use_adc (bool): If True, use Application Default Credentials (ADC).
-                        If False (default), use explicit service account file.
+    ADC automatically discovers credentials in this order:
+    1. GOOGLE_APPLICATION_CREDENTIALS env var (if set)
+    2. gcloud application-default credentials (~/.config/gcloud/)
+    3. GCE/Cloud Run metadata server (if running on GCP)
+
+    Setup: run `gcloud auth application-default login` once per machine.
 
     Returns:
         bigquery.Client: Authorized BigQuery client
 
     Raises:
-        RuntimeError: If authentication fails or service account file is not found
+        RuntimeError: If authentication fails (likely need to run gcloud auth)
     """
     try:
-        if use_adc:
-            client = bigquery.Client(project=BQ_PROJECT_ID, location=BQ_LOCATION)
-            return client
-        else:
-            credentials = Credentials.from_service_account_file(
-                str(BIG_QUERY_SERVICE_ACCOUNT_FILE), scopes=SCOPES_BIGQUERY
-            )
-            client = bigquery.Client(
-                credentials=credentials, project=BQ_PROJECT_ID, location=BQ_LOCATION
-            )
-            return client
-    except FileNotFoundError:
-        raise RuntimeError(f"Service account file not found: {BIG_QUERY_SERVICE_ACCOUNT_FILE}")
+        client = bigquery.Client(project=BQ_PROJECT_ID, location=BQ_LOCATION)
+        return client
     except Exception as e:
-        raise RuntimeError(f"Failed to initialize BigQuery client: {e}")
+        raise RuntimeError(
+            f"Failed to initialize BigQuery client: {e}\n"
+            "Hint: run `gcloud auth application-default login` to set up credentials."
+        )
 
 
 def execute_bigquery_query(query: str) -> pd.DataFrame:

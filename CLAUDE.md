@@ -43,7 +43,7 @@ from shared.utils import get_gspread_client, write_to_worksheet
 
 ### Security
 
-Never commit credentials. All keys and tokens live in `credentials/` (gitignored).
+Never commit credentials. OAuth tokens live in `credentials/` (gitignored). BigQuery uses Application Default Credentials (`gcloud auth application-default login`).
 
 ---
 

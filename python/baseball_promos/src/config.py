@@ -5,9 +5,7 @@ Facade over shared.config with project-specific constants.
 
 from shared.config import (
     PROJECT_ROOT,
-    BIG_QUERY_SERVICE_ACCOUNT_FILE,
     BQ_PROJECT_ID,
-    BQ_LOCATION,
 )
 
 # BigQuery

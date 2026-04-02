@@ -61,7 +61,7 @@ Each promotion is stored as a `Promotion` object with a deterministic `promo_id`
 
 - Python 3.12+ with the crystal-lab virtual environment
 - GCP project: `instant-bonfire-481001-c0`
-- BigQuery service account key at `credentials/big-query-key.json`
+- `gcloud` CLI installed and authenticated (for BigQuery via Application Default Credentials)
 
 ### 1. Install Dependencies
 
@@ -73,7 +73,15 @@ pip install -e .
 playwright install chromium
 ```
 
-### 2. Set Up Google Calendar OAuth (one-time)
+### 2. Set Up BigQuery Auth (one-time per machine)
+
+```bash
+gcloud auth application-default login
+```
+
+This opens a browser to authenticate with your Google account. The BigQuery client picks up these credentials automatically — no key file needed.
+
+### 3. Set Up Google Calendar OAuth (one-time)
 
 1. Go to [GCP Console > APIs & Services > Credentials](https://console.cloud.google.com/apis/credentials)
 2. Click **Create Credentials > OAuth 2.0 Client ID**
